@@ -20,6 +20,9 @@ exports.uploadFile = (req, res) => {
     first: 'Ada',
     last: 'Lovelace',
     born: 1815
+  })
+  .catch((err) => {
+    console.log('Error writing document', err);
   });
 
   var aTuringRef = db.collection('users').doc('aturing');
@@ -29,6 +32,9 @@ exports.uploadFile = (req, res) => {
     'middle': 'Mathison',
     'last': 'Turing',
     'born': 1912
+  })
+  .catch((err) => {
+    console.log('Error writing document', err);
   });
   
   db.collection('users').get()
@@ -40,6 +46,6 @@ exports.uploadFile = (req, res) => {
     .catch((err) => {
       console.log('Error getting documents', err);
     });
-    
-  res.status(200).send(message);
+
+  res.status(200).send('Database content:\n' + message);
 };
