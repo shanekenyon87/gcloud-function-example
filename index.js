@@ -1,10 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
-admin.initializeApp(functions.config().firebase);
-
-var db = admin.firestore();
-
 /**
  * Responds to any HTTP request.
  *
@@ -12,8 +8,10 @@ var db = admin.firestore();
  * @param {!express:Response} res HTTP response context.
  */
 exports.uploadFile = (req, res) => {
+  admin.initializeApp(functions.config().firebase);
+
+  var db = admin.firestore();
   var message = '';
-  
   var docRef = db.collection('users').doc('alovelace');
 
   var setAda = docRef.set({
