@@ -1,3 +1,6 @@
+const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+
 /**
  * Responds to any HTTP request.
  *
@@ -5,34 +8,37 @@
  * @param {!express:Response} res HTTP response context.
  */
 exports.uploadFile = (req, res) => {
-  const admin = require('firebase-admin');
-  const functions = require('firebase-functions');
+  
   admin.initializeApp(functions.config().firebase);
 
   var db = admin.firestore();
   var message = '';
-  var docRef = db.collection('users').doc('alovelace');
+  const listOfAsyncJobs = [];
 
-  var setAda = docRef.set({
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1815
-  })
-  .catch((err) => {
-    console.log('Error writing document', err);
-  });
+  // var docRef = db.collection('users').doc('alovelace');
 
-  var aTuringRef = db.collection('users').doc('aturing');
+  // var setAda = docRef.set({
+  //   first: 'Ada',
+  //   last: 'Lovelace',
+  //   born: 1815
+  // })
+  // .catch((err) => {
+  //   console.log('Error writing document', err);
+  // });
 
-  var setAlan = aTuringRef.set({
-    'first': 'Alan',
-    'middle': 'Mathison',
-    'last': 'Turing',
-    'born': 1912
-  })
-  .catch((err) => {
-    console.log('Error writing document', err);
-  });
+  // var aTuringRef = db.collection('users').doc('aturing');
+
+  // var setAlan = aTuringRef.set({
+  //   'first': 'Alan',
+  //   'middle': 'Mathison',
+  //   'last': 'Turing',
+  //   'born': 1912
+  // })
+  // .catch((err) => {
+  //   console.log('Error writing document', err);
+  // });
+
+  // return Promise.all(listOfAsyncJobs);
   
   db.collection('users').get()
     .then((snapshot) => {
