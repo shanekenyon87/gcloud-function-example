@@ -1,6 +1,3 @@
-const admin = require('firebase-admin');
-const functions = require('firebase-functions');
-
 /**
  * Responds to any HTTP request.
  *
@@ -8,6 +5,8 @@ const functions = require('firebase-functions');
  * @param {!express:Response} res HTTP response context.
  */
 exports.uploadFile = (req, res) => {
+  const admin = require('firebase-admin');
+  const functions = require('firebase-functions');
   admin.initializeApp(functions.config().firebase);
 
   var db = admin.firestore();
