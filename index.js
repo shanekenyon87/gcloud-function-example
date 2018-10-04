@@ -12,6 +12,34 @@ var db = admin.firestore();
  * @param {!express:Response} res HTTP response context.
  */
 exports.uploadFile = (req, res) => {
-  let message = req.query.message || req.body.message || 'Hello World!';
+  var message = '';
+  
+  var docRef = db.collection('users').doc('alovelace');
+
+  var setAda = docRef.set({
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1815
+  });
+
+  var aTuringRef = db.collection('users').doc('aturing');
+
+  var setAlan = aTuringRef.set({
+    'first': 'Alan',
+    'middle': 'Mathison',
+    'last': 'Turing',
+    'born': 1912
+  });
+  
+  db.collection('users').get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        message += doc.id + '=>' + doc.data();
+      });
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
+    
   res.status(200).send(message);
 };
