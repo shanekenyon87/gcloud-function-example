@@ -40,7 +40,7 @@ exports.uploadFile = (req, res) => {
 
   // return Promise.all(listOfAsyncJobs);
   
-  message = getUsers(db);
+  message = getUsers(db).data;
 
   res.status(200).send('Database content:\n' + message);
 };
