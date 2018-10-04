@@ -50,7 +50,7 @@ async function getUsers(db) {
   await db.collection('users').get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
-        message += doc.id + '=>' + doc.data();
+        message += doc.id + '=>' + JSON.stringify(doc.data());
       });
     })
     .catch((err) => {
