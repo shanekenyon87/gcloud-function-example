@@ -7,7 +7,7 @@ const functions = require('firebase-functions');
  * @param {!express:Request} req HTTP request context.
  * @param {!express:Response} res HTTP response context.
  */
-exports.uploadFile = (req, res) => {
+exports.uploadFile = async (req, res) => {
   
   admin.initializeApp(functions.config().firebase);
 
@@ -40,7 +40,7 @@ exports.uploadFile = (req, res) => {
 
   // return Promise.all(listOfAsyncJobs);
   
-  message = getUsers(db).data;
+  message = await getUsers(db);
 
   res.status(200).send('Database content:\n' + message);
 };
@@ -57,5 +57,7 @@ async function getUsers(db) {
       console.log('Error getting documents', err);
     });
 
+    console.log('getUsers.message = ' + message);
+    
     return message;
 }
