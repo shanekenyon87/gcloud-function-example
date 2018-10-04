@@ -40,7 +40,14 @@ exports.uploadFile = (req, res) => {
 
   // return Promise.all(listOfAsyncJobs);
   
-  db.collection('users').get()
+  message = getUsers(db);
+
+  res.status(200).send('Database content:\n' + message);
+};
+
+async function getUsers(db) {
+  var message = '';
+  await db.collection('users').get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
         message += doc.id + '=>' + doc.data();
@@ -50,5 +57,5 @@ exports.uploadFile = (req, res) => {
       console.log('Error getting documents', err);
     });
 
-  res.status(200).send('Database content:\n' + message);
-};
+    return message;
+}
