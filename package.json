@@ -1,0 +1,19 @@
+{
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "Google Cloud Platform Test Project",
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://source.developers.google.com/p/tonal-depth-218318/r/test-project"
+  },
+  "author": "Shane Kenyon",
+  "license": "ISC"
+}
