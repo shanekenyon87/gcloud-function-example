@@ -13,37 +13,39 @@ exports.uploadFile = async (req, res) => {
 
   var db = admin.firestore();
   var message = '';
-  const listOfAsyncJobs = [];
-
-  // var docRef = db.collection('users').doc('alovelace');
-
-  // var setAda = docRef.set({
-  //   first: 'Ada',
-  //   last: 'Lovelace',
-  //   born: 1815
-  // })
-  // .catch((err) => {
-  //   console.log('Error writing document', err);
-  // });
-
-  // var aTuringRef = db.collection('users').doc('aturing');
-
-  // var setAlan = aTuringRef.set({
-  //   'first': 'Alan',
-  //   'middle': 'Mathison',
-  //   'last': 'Turing',
-  //   'born': 1912
-  // })
-  // .catch((err) => {
-  //   console.log('Error writing document', err);
-  // });
-
-  // return Promise.all(listOfAsyncJobs);
   
+  createUsers(db);
   message = await getUsers(db);
 
   res.status(200).send('Database content:\n' + message);
 };
+
+function createUsers(db) {
+  var docRef = db.collection('users').doc('alovelace');
+
+  var setAda = docRef.set({
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1815
+  })
+  .catch((err) => {
+    console.log('Error writing document', err);
+  });
+
+  var aTuringRef = db.collection('users').doc('aturing');
+
+  var setAlan = aTuringRef.set({
+    'first': 'Alan',
+    'middle': 'Mathison',
+    'last': 'Turing',
+    'born': 1912
+  })
+  .catch((err) => {
+    console.log('Error writing document', err);
+  });
+
+  return Promise.all([setAda, setAlan]);
+}
 
 async function getUsers(db) {
   var message = '';
