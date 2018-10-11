@@ -9,7 +9,10 @@ const functions = require('firebase-functions');
  */
 exports.uploadFile = async (req, res) => {
   
-  admin.initializeApp(functions.config().firebase);
+  // Check if firebase is already initialized, per: https://maxrohde.com/2016/09/21/test-if-firebase-is-initialized-on-node-js-lambda/
+  if (admin.apps.length === 0) {
+    admin.initializeApp(functions.config().firebase);
+  }
 
   var db = admin.firestore();
   var message = '';
@@ -52,14 +55,12 @@ async function getUsers(db) {
   await db.collection('users').get()
     .then((snapshot) => {
       snapshot.forEach((doc) => {
-        message += doc.id + '=>' + JSON.stringify(doc.data());
+        message += '\n' + doc.id + '=>' + JSON.stringify(doc.data());
       });
     })
     .catch((err) => {
       console.log('Error getting documents', err);
     });
 
-    console.log('getUsers.message = ' + message);
-    
     return message;
 }
